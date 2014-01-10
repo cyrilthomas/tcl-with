@@ -1,5 +1,4 @@
 package provide "with" 0.1
-package require "tdom"
 package require "try"
 
 proc with { handle as variable block } {
@@ -8,7 +7,7 @@ proc with { handle as variable block } {
     set var $handle
     regexp "(dom|file|sock)" $handle --> handle
 
-    try {
+    ::tcl::control::try {
         uplevel $block
     } finally {
         switch $handle {
@@ -22,12 +21,6 @@ proc with { handle as variable block } {
             }
         }
     }
-    
+
     unset var
 }
-
-
-# with [dom parse "<xml/>"] as doc {
-#     set root [$doc documentElement]
-#     puts [$root asXML]
-# }
