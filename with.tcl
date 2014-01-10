@@ -20,7 +20,6 @@ proc with { handle as variable block } {
                 close $var
             }
         }
+        unset var
     }
-
-    unset var
 }
