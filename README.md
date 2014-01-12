@@ -1,7 +1,7 @@
 with
 ====
 
-A simple syntactic sugar to handle files, sockets and dom and automatically clean up resources elegantly
+A simple syntactic sugar to handle files, sockets and dom with automatic resource clean up.
 
 ```tcl
 with [dom parse "<xml/>"] as doc {
