@@ -1,16 +1,18 @@
 package provide "with" 0.1
 package require "try"
 
-proc with { handle as variable block } {
+proc with { channel as variable block } {
     upvar $variable var
 
-    set var $handle
-    regexp "(dom|file|sock)" $handle --> handle
+    set var $channel
+    if { ![regexp "(dom|file|sock)" $channel --> channel] } {
+        error "Unknown channel type - '$channel'! "
+    }
 
     ::tcl::control::try {
         uplevel $block
     } finally {
-        switch $handle {
+        switch $channel {
             dom {
                 $var delete
             }
@@ -20,6 +22,5 @@ proc with { handle as variable block } {
                 close $var
             }
         }
-        unset var
     }
 }
