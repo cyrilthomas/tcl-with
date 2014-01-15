@@ -6,8 +6,9 @@ A simple syntactic sugar to handle files, sockets and dom with automatic resourc
 ```tcl
 with [dom parse "<xml/>"] as doc {
     set root [$doc documentElement]
-    puts [$root asXML]
+    set xml [$root asXML]
 }
+puts "here is my xml:\n$xml"
 ```
 
 ```tcl
