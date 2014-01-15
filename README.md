@@ -17,6 +17,29 @@ with [open "/tmp/a" "a+"] as file {
 }
 ```
 
+```tcl
+# Server
+proc connected { channel addr port } {
+    with $channel as chan {
+        fconfigure $chan -buffering none -blocking 0
+        
+        puts "hello client $chan $addr $port"
+        puts "recieved message ... [read $chan]"
+    }
+    puts "closed client $chan"
+}
+
+after 60000 { set shutdown 1 }
+
+with [socket -server connected 6789] as sock {
+    vwait shutdown
+}
+
+# Client
+with [socket "localhost" 6789] as sock {
+    puts $sock "testing"
+}
+```
 Auto clean up of stale handles
 ```tcl
 package require "with"
