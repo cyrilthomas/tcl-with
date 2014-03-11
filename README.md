@@ -32,7 +32,7 @@ package require "with"
 proc connected { channel addr port } {
     with $channel as chan {
         fconfigure $chan -buffering none -blocking 0
-        
+
         puts "hello client $chan $addr $port"
         puts "recieved message ... [read $chan]"
     }
